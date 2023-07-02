@@ -6,4 +6,6 @@
     <dimen name="itemMargin">10dp</dimen>
     <dimen name="itemMarginVertical">5dp</dimen>
     <dimen name="layoutPadding">12dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="inputTextSizeSmaller">16dp</dimen>
 </resources>

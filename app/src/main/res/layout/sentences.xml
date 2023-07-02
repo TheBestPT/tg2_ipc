@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -13,24 +14,33 @@
         android:layout_marginHorizontal="@dimen/itemMargin"
         android:layout_marginVertical="@dimen/itemMarginVertical"
         android:layout_width="wrap_content"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true">
+        android:foreground="?android:attr/selectableItemBackground">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:layout_margin="5dp">
 
-            <TextView
-                android:id="@+id/sentenceContent"
-                android:layout_width="wrap_content"
+            <LinearLayout android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/inputTextSize"
                 android:layout_centerVertical="true"
-                android:maxLength="25"
-                android:textColor="@color/black"
-                android:layout_alignParentStart="true"/>
+                android:orientation="vertical"
+                tools:ignore="RelativeOverlap">
+                <TextView
+                    android:id="@+id/sentenceContent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/inputTextSize"
+                    android:maxLength="25"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/sentenceCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/inputTextSizeSmaller"
+                    android:maxLength="25" />
+            </LinearLayout>
 
             <ImageView
                 android:layout_width="50dp"

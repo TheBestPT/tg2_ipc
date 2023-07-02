@@ -9,61 +9,58 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.finalproject.recyclerview.SentenceAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
+import org.json.JSONException;
+
 import java.util.List;
-import java.util.Locale;
-import java.util.stream.Collectors;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     TextToSpeech tts;
-    FloatingActionButton speechButton;
+    FloatingActionButton newSentenceButton;
+
+    SentenceManager sentenceManager;
+    private List<Sentence> sentences;
+    private SentenceAdapter adapter;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        speechButton = (FloatingActionButton) findViewById(R.id.speechButton);
-        speechButton.setOnClickListener(this);
+        try {
+            this.sentenceManager = new SentenceManager(this);
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            newSentenceButton = (FloatingActionButton) findViewById(R.id.speechButton);
+            newSentenceButton.setOnClickListener(this);
 
-        List<Sentence> sentences = new ArrayList<>();
-        sentences.add(new Sentence("Frase de testeEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"));
-        sentences.add(new Sentence("Olá tudo bem?"));
-        sentences.add(new Sentence("Frase de teste"));
-        sentences.add(new Sentence("Frase de teste"));
-        sentences.add(new Sentence("Frase de teste"));
-        sentences.add(new Sentence("Frase de teste"));
-        sentences.add(new Sentence("Frase de teste"));
-        sentences.add(new Sentence("Frase de teste"));
-        sentences.add(new Sentence("Frase de teste"));
+            recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        this.tts = new TextToSpeech(this, (status) -> {
-            if (status != TextToSpeech.ERROR) {
-                Locale pt = tts.getAvailableLanguages().stream().filter((l) ->
-                        l.getCountry().equals("PT")).findFirst().orElse(Locale.ENGLISH);
-                Log.i("[FINAL PROJECT]", pt.getLanguage());
-                Log.i("FINAL PROJECT", tts.getAvailableLanguages().stream().map((l) -> l.getCountry()).collect(Collectors.toList()).toString());
-                Log.i("FINAL PROJECT", String.valueOf(tts.setLanguage(pt)));
-            } else {
-                Toast.makeText(getApplicationContext(), "Erro", Toast.LENGTH_SHORT).show();
-            }
-        });
+            refreshAdapter();
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
 
-        SentenceAdapter adapter = new SentenceAdapter(sentences, this.tts);
-        recyclerView.setAdapter(adapter);
+        this.tts = TTS.getInstance(getApplicationContext()).getTTS();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        try {
+            this.tts = TTS.getInstance(getApplicationContext()).getTTS();
+            this.refreshAdapter();
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -81,8 +78,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 this.writeAndSpeak();
                 return true;
             case R.id.about:
-                // todo
-                Toast.makeText(this, "Unavailable", Toast.LENGTH_SHORT).show();
+                this.openAbout();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -90,32 +86,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        // Don't forget to shutdown tts!
-        if (tts != null) {
-            tts.stop();
-            tts.shutdown();
-        }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (tts != null) {
-            tts.stop();
-            tts.shutdown();
-        }
-    }
-
-    @Override
     public void onClick(View v) {
-        if (v == this.speechButton) {
+        if (v == this.newSentenceButton) {
             this.writeAndSpeak();
         }
     }
 
+    public void refreshAdapter() throws JSONException {
+        sentences = this.sentenceManager.getSentences();
+        adapter = new SentenceAdapter(sentences, this.tts, this);
+        recyclerView.setAdapter(adapter);
+    }
+
     private void writeAndSpeak() {
-        startActivity(new Intent(MainActivity.this, WriteAndSpeak.class));
+        Intent i = new Intent(MainActivity.this, FragmentActivity.class);
+        i.putExtra("fragment", Constants.NEW_SENTENCE_MENU.value());
+        startActivity(i);
+    }
+
+    private void openAbout() {
+        Intent i = new Intent(MainActivity.this, FragmentActivity.class);
+        i.putExtra("fragment", Constants.ABOUT_MENU.value());
+        startActivity(i);
     }
 }

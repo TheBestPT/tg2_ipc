@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/newSentenceLayout"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/layoutPadding"
-    tools:context=".WriteAndSpeak">
+    tools:context=".NewSentenceFragment"
+    android:orientation="vertical">
 
     <TextView
+        android:id="@+id/textLabel"
         android:text="@string/textToAdd"
+        android:textSize="@dimen/inputTextSize"
+        android:textColor="@color/black"
+        android:layout_margin="2dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <EditText
+        android:id="@+id/sentenceText"
+        android:layout_below="@id/textLabel"
         android:hint="@string/yourSentence"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,10 +29,28 @@
         android:gravity="top"
         android:textSize="@dimen/inputTextSize"/>
 
+    <Spinner
+        android:id="@+id/category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sentenceText"
+        android:spinnerMode="dropdown"/>
+
     <Button
-        android:layout_alignParentBottom="true"
+        android:id="@+id/previewButton"
+        android:text="@string/listen"
+        android:drawableLeft="@drawable/play_white"
+        android:layout_below="@+id/category"
         android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="RtlHardcoded" />
+
+    <Button
+        android:id="@+id/saveButton"
         android:text="@string/save"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:backgroundTint="@color/main"
         android:drawableLeft="@drawable/checkmark"
         android:layout_width="wrap_content"

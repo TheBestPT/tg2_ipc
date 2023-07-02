@@ -2,8 +2,20 @@
     <string name="app_name">FinalProject</string>
     <string name="newSentence">Nova Frase</string>
     <string name="about">Sobre</string>
+    <string name="aboutTxt">Aplicação criada no âmbito da Unidade Curricular de Interação Pessoa-Computador pelo grupo de alunos formado por: Tierri Ferreira, José Francisco Fernandes.</string>
     <string name="yourSentence">A sua frase...</string>
     <string name="play">Play</string>
     <string name="save">Guardar</string>
-    <string name="textToAdd">Escreva a frase a adicionar:</string>
+    <string name="textToAdd"><b>Escreva a frase a adicionar:</b></string>
+    <string name="title_activity_fragment">FragmentActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="listen">Ouvir</string>
+    <string name="app_display_name">ComunicaAppText</string>
 </resources>
