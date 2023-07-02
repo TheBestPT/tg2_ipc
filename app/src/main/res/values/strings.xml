@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">FinalProject</string>
+    <string name="newSentence">Nova Frase</string>
+    <string name="about">Sobre</string>
+    <string name="yourSentence">A sua frase...</string>
+    <string name="play">Play</string>
+    <string name="save">Guardar</string>
+    <string name="textToAdd">Escreva a frase a adicionar:</string>
+</resources>

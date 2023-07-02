@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="paddingBottom">40dp</dimen>
+    <dimen name="inputTextSize">20sp</dimen>
+    <dimen name="cornerRadius">8dp</dimen>
+    <dimen name="itemMargin">10dp</dimen>
+    <dimen name="itemMarginVertical">5dp</dimen>
+    <dimen name="layoutPadding">12dp</dimen>
+</resources>
