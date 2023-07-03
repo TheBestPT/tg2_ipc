@@ -4,8 +4,6 @@ import android.content.Context;
 import android.speech.tts.TextToSpeech;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 public class TTS {
